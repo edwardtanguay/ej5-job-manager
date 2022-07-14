@@ -15,6 +15,14 @@ function App() {
 		return currentUser.username !== 'anonymousUser';
 	};
 
+	const currentUserIsInAccessGroup = (accessGroup) => {
+		if (currentUser.accessGroups) {
+			return currentUser.accessGroups.includes(accessGroup);
+		} else {
+			return false;
+		}
+	};
+
 	const getJobSources = () => {
 		(async () => {
 			setJobSources(
@@ -91,6 +99,14 @@ function App() {
 							Logged in: {currentUser.firstName}{' '}
 							{currentUser.lastName}
 						</div>
+					)}
+				</div>
+				<div className="info">
+					{currentUserIsInAccessGroup('administrators') && (
+						<div>info for administrators</div>
+					)}
+					{currentUserIsInAccessGroup('jobSeekers') && (
+						<div>new job information for job seekers</div>
 					)}
 				</div>
 				{userIsLoggedIn() ? (
